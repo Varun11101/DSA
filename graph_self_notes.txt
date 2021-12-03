@@ -1,0 +1,33 @@
+                                                                     |GRAPHS|
+
+Basic terminology:
+- Connected components: In an undirected graph, the number of components such that in that particular component, all the nodes are reachable by all other nodes.
+- Strongly connectedc components: Similar, but for directed graphs
+
+Trees:
+- Depth of a tree: Number of edges between the root and that particular node
+- Height of a tree: Number of edges between the particular node and the farthest leaf node
+- LCA: Lowest common ancestor: The lowest common parent of the given nodes
+
+Representations for Graphs:
+1) Adjacency matrix:
+	- Space complexity of: O(N^2)
+	- Tells whether two nodes are connected or not in O(1) time / gives the weight of the edge in O(1) time
+2) Adjacency List:
+	- Space complexity of: O(V+E)
+	- This doesn't give the weight/tell whether two nodes are connected or not in O(1) time, instead it is O(E)
+
+DFS: Graph traversal technique
+	- Can be done using recursion or stack
+	- Explores the depth of a node first 
+	- Used to find the number of connected components and cycle detection.
+
+Different parts of code involving DFS:
+	- 1) Code to be executed upon entering a vertex
+	- 2) Code to be executed before entering the vertex's child node
+	- 3) Code to be executed after leaving the child node and going back to the parent node
+	- 4) Code to be executed after leaving the vertex (parent node)
+
+Various questions involving DFS:
+- Finding the number of connected components
+- Finding the connected components
