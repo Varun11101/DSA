@@ -1,4 +1,6 @@
-                                                                     |GRAPHS|
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-* Graphs and Trees *-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
+									- Varun11101
+*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-
 
 Basic terminology:
 - Connected components: In an undirected graph, the number of components such that in that particular component, all the nodes are reachable by all other nodes.
@@ -20,7 +22,7 @@ Representations for Graphs:
 DFS: Graph traversal technique
 	- Can be done using recursion or stack
 	- Explores the depth of a node first 
-	- Used to find the number of connected components and cycle detection.
+	- Used to find the number of connected components and cycle detection
 
 Different parts of code involving DFS:
 	- 1) Code to be executed upon entering a vertex
@@ -28,6 +30,55 @@ Different parts of code involving DFS:
 	- 3) Code to be executed after leaving the child node and going back to the parent node
 	- 4) Code to be executed after leaving the vertex (parent node)
 
-Various questions involving DFS:
 - Finding the number of connected components
 - Finding the connected components
+- Number of connected components in a grid
+
+BFS: Breadth first search traversal
+	- Main application: To find the shortest path from a source to all the other nodes in an unweighted graph or weighted graph with equal weights!
+	- 0-1 BFS: Using deque : Ex problem: REVERSE graph (Codechef problem)
+
+Multi-source BFS: Very important for CP: Snake question from CC, Virus spreading problem, rotten oranges/tomatoes etc.
+You start a bfs, but initially you push multiple nodes into the queue. Distance array will contain the answer i.e
+	minmmum months/days needed to infect a country (in case of a virus outbreak problem).
+	Ex problem: https://www.codechef.com/SNCKPB17/problems/SNSOCIAL/
+
+NOTE: - In questions that requires you to print a path, a cycle, or a parent, you need to maintain the parent array and trace back all your way to the
+	beginning to find the answer. 
+      - It's better to declare visited, grid, dist array globally.
+      - Three main parts in BFS when you are dealing with queue:
+		1) Push the element into the queue
+		2) Update the distance of the element that you just pushed into the queue
+		3) Mark the element as visited
+
+Few practice problems for BFS: CSES problemset Labyrinth, Biridian Forest (CF)
+
+
+Djikstra's algorithm: Used to finding the shortest path (SSSP) in weighted graphs
+	- Intuition behind Djikistra's algo is that the nodes which are at a lesser distance (have a lower edge weight) are reached first.
+	- Think of splitting an edge of weight w into w edges having w-1 nodes in between, with each edge having a weight of 1. Now, the first point makes sense.
+	- We use a set to achieve this. We push in a pair - {distance, node} into the set. The ones with lesser distance will be processed first.
+	- (Similar to the modified BFS that you came up with, except we use a set, since using a regular queue would result in redundant pushes which 
+	   increases the time complexity of the algorithm).
+	- Visited array is not required, you can use distance array as a visited array.
+	- The basic implementation of djikstra algo: 
+
+	set<pair<int,int>> s; //creating a set of pairs {distance from the source, node}
+        vector<int> dist(n+1, INF); //distance array which gives the shortest path from source to that node. Initially, everything is at the distance of INF 
+        dist[src] = 0; //distance of source node from source is obviously 0 xD
+        s.insert({0,src}); //pushing in the source into the set
+        while(!s.empty()){ //keep iterating until the set becomes empty
+            pair<int,int> cur = *(s.begin()); //we store the element to be processed (current node)
+            s.erase(s.begin());		      //and pop it out of the set/priority queue
+	    int u_d = cur.first;		      //d stores the distance between cur_node and source
+            int u = cur.second;	  	      //u is the current node
+            for(auto v : adj[u]){             //we iterate over the connected nodes/children of the current node -> u
+                //v -> gives a pair -> {child_node, weight/distance between parent and child node}
+                int newdist = v.second + u_d; //new dist -> distance from source to parent + distance from parent to child
+                int child_node = v.first;     
+                if(newdist < dist[child_node]){ //main condition
+                    dist[child_node] = newdist;
+                    s.insert({dist[child_node], v.first});
+                }
+            }
+        }
