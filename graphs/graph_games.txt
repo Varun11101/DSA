@@ -1,0 +1,31 @@
+Author: Varun11101
+
+Game theory on Graphs -> Graph games!
+References materials:
+- A&DS S03E08 Graph Games by pashka
+- cp algorithms
+
+Let's start off with the most common graph game.
+There are two players playing a game.
+In one move, you have to move to any of the neighbouring vertices. 
+If you are not able to move, you simply lose.
+Given a starting vertex, determine whether player 1 is going to win or lose or whether the game ends in draw, provided that both the players play optimally.
+
+Observations:
+- The game ends up in a draw, only if the graph is cyclic. Cuz, you can just move in the cycle repeatedly and never reach a final end.
+- If the graph is a DAG (Directed acyclic graph), then the possibilities are either win/lose.
+
+Now the question is, how do you determine whether given a node, player 1 wins or not??
+You start off from right to left (right as in the node that has an outdegree of 0) and mark that node as the losing node.
+If you start at the losing node - you lose.
+
+Now, all the nodes that are connected to a losing node will automatically becoming a winning node.
+Why? Cuz, player 1 can simply move from that node to the connected losing node which puts player 2 in a losing position.
+
+If you are at a node that leads to all winning nodes, then that node is a losing node because if you move to any neighbouring node, you are putting
+player 2 in a winning position.
+
+Summary: You start off from the right most node i.e outdegree = 0 and start determining all nodes from right to left as whether they are losing nodes, or
+winning nodes. 
+
+There are mutliple other games that involve the cost of the edge and asymmetric games which can be found in pashka's video.
