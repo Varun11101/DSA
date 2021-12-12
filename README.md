@@ -1,2 +1,2 @@
 # dsa
- Algorithms and code snippets for reference
+ Some DSA stuff for future reference.
