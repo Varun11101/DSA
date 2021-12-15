@@ -82,3 +82,46 @@ Djikstra's algorithm: Used to finding the shortest path (SSSP) in weighted graph
                 }
             }
         }
+
+Bipartite graphs: Used to find whether you can split nodes into two groups such that none of in a group connected to any other node in the same group.
+	- Main application: Used to detect odd cycles i.e cycles having odd number of nodes in them.
+
+Detecting Cycles in Graphs:
+	- Undirected graph: Basic DFS: If you find a child that is already visited and if the child isn't the current node's parent, then cycle exists.
+	- Directed graph: DFS: Check github -> You modify the visited array. If you find a child node that is visited and already being processed, then cycle exists.
+
+TREES: 
+
+In and Out time: 
+	- This is used in query questions where in each query you are given two nodes and are asked to find whether one of them lies in the subtree of another.
+	- Naive approach: For each query, we use the "currently being processed or already processed" method which is used to find cycles in a directed graph.
+			  - We start the dfs from the root, and if we find a child, we check whether the parent is being processed or not.
+			  - If it is being processed still, that means they lie in the same subtree, else no.
+			  - Time compleixty: O(q*(n+e)) which will tle
+
+	- Better approach: Using in and out time. Use calculate the in time (i.e the time at which we enter the node) and out time (the time at which we leave the node)
+			   - If they are in the same subtree, then the in time of the parent should be less than that of it's child and
+			     the out time of the child should be lesser than the out time of it's parent. If these two conditions satisfy, then the ans is yes, else no.
+			  - Time complexity: O(n+e+q)
+
+Finding the longest path in a tree: Same as finding the diameter of the tree
+	- Take any node and perform dfs on the node. You will get a node that the farthest distance from this node. This node has to be one of the ends
+	  of the longest path. Let's call this node as m1
+	- Perform a dfs from m1. Now, the node with the farthest distance from m1 is the other end of the longest path and this distance is the required answer.
+
+Finding the number of nodes or vertices in a subtree:
+  Method 1:
+	- Can be done using DFS
+	- number of nodes in a subtree rooted r1 = 1 (including the root) +  sum of number of nodes in subtree rooted ci (where i = child 1, child 2.. so on)
+	- DFS returns int - i.e the number of nodes in a subtree rooted r
+	- In the end, while leaving the parent vertex, store the answer inside of a global array which can then be used to answer queries in constant time.
+ Method 2: Using In/Out time.
+	Number of nodes in a subtree rooted at r = (out_time(r) - in_time(r))/2 + 1
+
+Longest common ancestor: 
+	- Can be done in O(N) using multiple methods. 
+	- One of the methods: Start a dfs from the root, and store the parent of every node.
+	- Create two arrays, the path from node1 to root and path from node2 to root.
+	- Compare the arrays, and the node which the first common among both the paths is the answer. (assuming the path starts from the node to the root)
+
+
