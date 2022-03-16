@@ -1,0 +1,52 @@
+                                                                   Topic: Bit Manipulation and Bit Masking
+                                                                            Author: Varun11101
+                                                                            
+                                 In a nutshell, bit manipulation mainly involves looking the bits independently and then computing the results.
+
+References:
+1) CodeNCode Bit Manipulation Playlist
+2) Errichto's Bit Manipulation CF Blog
+3) Galen Colin's Bit Manipulation theory + Problem solving (Codeforces) videos on YT
+4) GeeksForGeeks for Bit tricks
+5) Hackerearth's article on Bit Manipulation
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+1) BASIC BIT MANIPULATION
+
+a) Checking whether i-th bit of a number is set or not: if(x & (1LL << i)) "YES", else "NO"
+b) Setting i-th bit of a number: x |= (1LL << i);
+c) Flipping i-th bit of a number: x ^= (1LL << i);
+d) Resetting j-th bit of a number: Check if the j-th bit is set, if it is set, just XOR -> if(x & (1LL << j)) x ^= (1LL << j)
+e) Removing the last set bit of a number i.e resetting the LSB of a number: x &= x-1
+
+2) SHIFTING A NUMBER TO THE LEFT BY K == MULTIPLYING THE NUMBER BY 2 FOR K TIMES
+  Proof: Consider the number 5 -> 101
+  5 = 1*2^2 + 0* 2^1 + 1*2^0
+  
+  Now, let's left shift the number once : x <<= 1. It now results in:
+  1*2^3 + 0*2^2 + 1*2^1 + 0*2^0 == 2(1*2^2 + 0* 2^1 + 1*2^0) -> 2*5 -> 10
+  
+  Similarly, shifting a number to the right by k times == dividing the number by 2 for k times
+  
+  3) BINARY REPRSENTATION OF A 32 BIT SIGNED INTEGER
+  Loop from 31st bit to 0th bit, if the bit is set, print 1, else 0
+  
+  4) Use 1LL instead of 1 cuz using just 1 makes it a constant integer data type which has good chances for overflow while dealing with large numbers.
+  
+  5) Number of numbers having n-th bit as their MSB is: 2pow(n-1) to 2pow(n)-1
+  
+  6) 0's and 1's in the i-th bit in a binary table alternates after every 1 << i times
+  
+  7) Maximmum range for a signed n bit integer: 2pow(n-1)-1 to -2pow(n-1) [Note: One extra neg number occurs because of the two's complement rule]
+  
+  8) BUILT-IN FUNCTIONS IN C++
+    a) __builtin_popcountll(x) -> returns the number of set bits in a long long integer
+    b) __builtin_ctz(x) -> returns the number of trailing zeroes in a number. Application: To find the LSB
+    c) __builtin_clz(x) -> returns the number of leading zeroes in a number. Application: To find the MSB
+    
+    To find the MSB: 63 - __builtin_clzll(x)
+    To find the LSB: __builtin_ctzll(x)
+    
+9) MSB >>>> all the other significant bits in the number. This idea is very important in greedy problems.
+    
