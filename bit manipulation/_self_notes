@@ -15,7 +15,7 @@ References:
 0) ANY NUMBER CAN BE REPRESENTED AS A SUM OF POWERS OF 2.
   x = 0/1*2pow(n-1) + 0/1*2pow(n-2) +....+ 0/1*2pow(0)
   
-  NUMBER OF BITS IN THE NUMBER -> floor(Log2(x)) or just find the msb index (using clz function) + 1
+  NUMBER OF BITS IN THE NUMBER -> floor(Log2(x))+1 or just find the msb index (using clz function) + 1
   
 1) BASIC BIT MANIPULATION
 
