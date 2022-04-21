@@ -174,6 +174,8 @@ Basically, in rotated problems, BS involves comparing the mid with left and righ
    
    TIP: IN dupes + rotated, first check which part is sorted. And then, check whether the target is in the sorted part. If it is, then shift to search space
         to the sorted space, or shift it to the unsorted space.
+        
+   NOTE: If both the parts are sorted, then that MUST mean that the array is already sorted. So, to find the minimmum element, search in the first part.
 
 4) Finding the peak -> Consider an array like this: 4 5 6 7 8 8 6 5 4 3 1, and you need to find atleast one peak.
   Invariant method, indeed works here. Let l always point to a rising part or a peak, and r always point to the falling part.
