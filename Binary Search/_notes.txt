@@ -140,6 +140,13 @@ d) Step 4: Finding the max average. i.e given an array so so, you need to pick a
 
 e) Step 5: Finding the k-th element: Given a bunch of segments, find the k-th elements if you were to merge and sort them without actually merging them.
           Refer: CF EDU and Leetcode Median of two arrays problem.
+    
+    MAIN LOGIC: Notice that k-th element (1-indexed) will always have ATMOST k-1 elements smaller than it. 
+    So, pick a value and check the number of elements smaller than it by looping over all segments.
+    If, the number of elements smaller than that value comes out to be greater than or equal to k, then that value CAN'T be the k-th element no matter what.
+    Else, if it is lesser, then that element is a possible k-th element, so look fruther.
+    
+    Predicate function:  T T T T T T T .... F F F F F
 
 
 
