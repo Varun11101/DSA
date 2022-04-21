@@ -116,4 +116,66 @@ We'll be talking about Binary search.
               
          As usual, in the end, either l or r will contain the answer depending upon the problem we are dealing with.
       
+      In these problems, i.e binary search on the answer problems, we pass in a possible ans into our good/predicate function.
+      The good function performs some logic and then returns true/false. This logic itself is the biggest challenge in these kind of problems.
+      
+      Approach these problems with the mindset of: "Oh, so is it possible to that our answer is x?. Let me use some series of operations such as loops, maths, sum
+        etc. to find whether this is indeed a valid solution. If it is, we return true, else we return false."
+        
+ 
+ c) STEP 3: https://codeforces.com/edu/course/2/lesson/6/3
+    MINIMAX PROBLEMS: In these kind of problems, you are required to minimize some max value or maximize some minimize value.
+    Here, again we binary search on the final answer. Hard to explain.. just read the blog :/
+    These problems are usually math based. You apply some maths in the good function to find the logic of whether x is a valid solution or not.
+    
+d) Step 4: Finding the max average. i.e given an array so so, you need to pick a bunch of elements that give you max avg. Not that important and boring stuff.
+
+e) Step 5: Finding the k-th element: Given a bunch of segments, find the k-th elements if you were to merge and sort them without actually merging them.
+          Refer: CF EDU and Leetcode Median of two arrays problem.
+
+
+
+For interview prep:
+
+Main problem:
+1) Finding the target element in rotated array
+2) Finding the minimmum/maximmum element in rotated array
+
+Basic logic in rotated array with no duplicates is that, if the array is not sorted (handle for array == sorted case separately always), 
+then, the first element in the array is always greater than the last element in the array. i.e it keeps climbing up, and then falls down and never exceed the starting 
+ position of the first part. Try drawing two arrows, where the bottom of the first arrow is always bigger than the last element of the second arrow.
+ 
+ Ex: 4 5 6 1 2 3
+ 
+ Here, in these without duplicate problems, we can easily use our invariant method. 
+ Let's say good(pos) == true, if arr[mid] > arr[leftmost_element].
+ Then, l would contain the largest element and r would contain the smallest element. Now, you could binary search on one of the parts to find the target.
+
+Basically, in rotated problems, BS involves comparing the mid with left and right pointers.
+
+3) Same stuff, but rotated + duplicates.
+   Here, things get a bit complicated. This is one of those problems where invariants fail. We need to use the classical method here.
+    Also, note that, the worst cast TIME COMPLEXITY for dupes + rotated array is O(N). 
+    Consider the example: 4 4 4 5 4 4 4 4 4 4 or 4 4 4 4 4 4 4 5 4 4, and we are supposed to find the largest element in the array.
+
+  Here l = 4, r = 4, mid = 4. We don't know where the move. So we either BS recursively on both left and right side OR
+  the better way is to simply increase left pointer and decrease the right pointer.
+  
+  If you find a part where the part doesn't seem to be sorted i.e if arr[mid]  > arr[r] or arr[l] > arr[mid], then we know the the largest element or even the smallest
+  element must lie in this part. So, shift your search space to that part.
+
+4) Finding the peak -> Consider an array like this: 4 5 6 7 8 8 6 5 4 3 1, and you need to find atleast one peak.
+  Invariant method, indeed works here. Let l always point to a rising part or a peak, and r always point to the falling part.
+  But edge case, if(arr[n-1] >= arr[n-2]) then, last element is indeed a peak, return that
+  Do the same with l, and then if none of them returned a peak, then l must be pointed to a rising part and r must be pointing to a falling part.
+  Always maintain this invariant and eventually you will find a peak.
+    
+   if(arr[mid] >= arr[l]) l = mid; //possible peak
+   else r = mid; 
+
+
+That's it i guess. Just remember. If you ever find a problem that says find min/max or find max of min, min of max, try if binary search is possible, and then
+only proceed to other methods.
+
+Solve dupes + rotated array once again later on since invariants can't be applied and hence, it's a pain to deal with.
 
