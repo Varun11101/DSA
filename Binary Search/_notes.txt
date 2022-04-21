@@ -163,6 +163,9 @@ Basically, in rotated problems, BS involves comparing the mid with left and righ
   
   If you find a part where the part doesn't seem to be sorted i.e if arr[mid]  > arr[r] or arr[l] > arr[mid], then we know the the largest element or even the smallest
   element must lie in this part. So, shift your search space to that part.
+   
+   TIP: IN dupes + rotated, first check which part is sorted. And then, check whether the target is in the sorted part. If it is, then shift to search space
+        to the sorted space, or shift it to the unsorted space.
 
 4) Finding the peak -> Consider an array like this: 4 5 6 7 8 8 6 5 4 3 1, and you need to find atleast one peak.
   Invariant method, indeed works here. Let l always point to a rising part or a peak, and r always point to the falling part.
