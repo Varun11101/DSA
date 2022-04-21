@@ -34,6 +34,14 @@ We'll be talking about Binary search.
           else r = mid - 1 //ans must lie to the left
         }
         
+        Weird change that I make to this implementation: 
+          if(l+1 == r){
+            //logic
+          }
+          
+         Handle this case separately cuz I've faced few TLE without this piece of code. This happens cuz mid would be equal to l in this case, which may
+         give rise to some edge cases.
+        
           
   b) A better approach -> Invariants method
     
