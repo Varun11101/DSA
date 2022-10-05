@@ -1,21 +1,32 @@
-//Made by Varun11101
 struct rollingHash {
+  //Built by Varun11101
   long long B, n, mod;
   string s;
-  vector<long long> pref, revpref;
+  vector<long long> pref, revpref, modpow, modinv;
 
   rollingHash(string str, long long base){
-    mod = 1e9 + 7; //change mod here if needed
+    mod = 1e9 + 7;
     n = str.size();
     s = str;
     B = base;
     // B = getRandomNumber(31, 69); //not for leetcode 
     pref.resize(n);
+    modpow.resize(n+1);
+    modinv.resize(n+1);
 
+    if(n > 0) modpow[0] = 1;
+    for(long long i = 1; i <= n; i++){
+      modpow[i] = (modpow[i - 1] * B) % mod;
+    }
+
+    modinv[n] = modulo_inv(modpow[n]);
+    for(long long i = n - 1; i >= 0; i--){
+      modinv[i] = ((modinv[i + 1] % mod) * (B % mod)) % mod;
+    }
     //generate the prefix array
     long long mul = 1;
     for(long long i = 0; i < n; i++){
-      pref[i] = ((s[i] - 'a' + 1) * (mul % mod)) % mod;
+      pref[i] = ((s[i] + 1) * (mul % mod)) % mod;
       if(i != 0){
         pref[i] = (pref[i - 1] + pref[i]) % mod;
       }
@@ -42,7 +53,8 @@ struct rollingHash {
   long long subHash(long long l, long long r){
     long long ans = pref[r] % mod;
     if(l != 0) ans = (ans - pref[l - 1] + mod) %mod; 
-    ans = ((ans % mod) * (modulo_inv(binpow(B, l, mod)) % mod))% mod;
+    // ans = ((ans % mod) * (modulo_inv(binpow(B, l, mod)) % mod))% mod;
+    ans = ((ans % mod) * (modinv[l] % mod)) % mod;
     return ans;
   }
 
@@ -52,7 +64,7 @@ struct rollingHash {
     reverse(rev.begin(), rev.end());
     long long mul = 1;
     for(long long i = 0; i < n; i++){
-      revpref[i] = ((rev[i] - 'a' + 1) * (mul % mod)) % mod;
+      revpref[i] = ((rev[i] + 1) * (mul % mod)) % mod;
       if(i != 0){
         revpref[i] = (revpref[i - 1] + revpref[i]) % mod;
       }
@@ -63,7 +75,8 @@ struct rollingHash {
   long long revSubHash(long long l, long long r){
     long long ans = revpref[r] % mod;
     if(l != 0) ans = (ans - revpref[l - 1] + mod) %mod; 
-    ans = ((ans % mod) * (modulo_inv(binpow(B, l, mod)) % mod))% mod;
+    // ans = ((ans % mod) * (modulo_inv(binpow(B, l, mod)) % mod))% mod;
+    ans = ((ans % mod) *  (modinv[l] % mod))% mod;
     return ans;
   }
 
